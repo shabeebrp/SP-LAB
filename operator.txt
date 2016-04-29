@@ -1,0 +1,12 @@
+S -> A
+A -> T
+A -> A + T
+A -> A - T
+T -> F
+T -> T * F
+T -> T / F
+F -> P
+F -> P ^ F
+P -> i
+P -> n
+P -> ( A )
