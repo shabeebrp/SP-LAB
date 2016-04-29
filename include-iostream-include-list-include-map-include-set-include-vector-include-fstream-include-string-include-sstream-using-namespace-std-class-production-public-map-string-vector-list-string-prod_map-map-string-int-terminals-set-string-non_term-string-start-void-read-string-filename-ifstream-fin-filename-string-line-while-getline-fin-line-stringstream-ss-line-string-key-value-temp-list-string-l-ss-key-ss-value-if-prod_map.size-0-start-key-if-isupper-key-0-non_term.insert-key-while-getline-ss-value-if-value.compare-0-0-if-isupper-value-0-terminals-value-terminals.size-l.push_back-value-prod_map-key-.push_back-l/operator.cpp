@@ -251,6 +251,6 @@ public:
 
 };
 int main() {
-	precedence pr("input9.txt");
+	precedence pr("operator.txt");
 	return 0;
 }
