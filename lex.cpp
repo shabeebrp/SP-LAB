@@ -57,7 +57,7 @@ void print(string token) {
 		cout << "Assign\t:\t" << token << endl;
 	else if (isNumber(token))
 		cout << "Number\t:\t" << token << endl;
-	else if (isalpha(token[0]))
+	else if (isalpha(token[0]) || token[0] == '_')
 		cout << "ident\t:\t" << token << endl;
 	else
 		cout << "Invalid\t:\t" << token << endl;
@@ -67,7 +67,7 @@ void analyze(string token) {
 	//cout << token << endl;
 	string current = "";
 	for (int i = 0; i < token.size(); i++)
-		if (isalnum(token[i]))
+		if (isalnum(token[i]) || token[i]=='_')
 			current += string(1, token[i]);
 		else {//if token[i] is not alpha numeric
 			print(current);
