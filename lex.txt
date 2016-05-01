@@ -1,5 +1,6 @@
 int main(){
 int x;
+int _v_ar;
 x = 100 + 20;
 if(x>=125)
 print x
