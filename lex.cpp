@@ -8,9 +8,10 @@ using namespace std;
 int line_no = 1;
 
 vector<string> delims = { "{", "}", "[", "]", ",", ";", "." , "(", ")" };
-vector<string> operators = { "+", "-", "*", "/" };
-vector<string> relOps = { "<", ">", "!" };
+vector<string> operators = { "+", "-", "*", "/"};
+vector<string> relOps = { "<", ">", "!",">=","<=","!=" };
 vector<string> logOps = { "&", "|" };
+vector <string> assignment = { "=","+=","-=","*=","/=" };
 vector<string> keyword = {
 	"int", "float", "double", "char", "void",
 	"while", "for", "do", "if", "return"
@@ -30,6 +31,9 @@ bool isLogOp(string token) {
 bool isKeyword(string token) {
 	return(find(keyword.begin(), keyword.end(), token) != keyword.end());
 }
+bool isAssign(string token) {
+	return(find(assignment.begin(), assignment.end(), token) != assignment.end());
+}
 bool isNumber(string token) {
 	for (auto i = token.begin(); i != token.end(); i++)
 		if (!isdigit(*i))
@@ -37,17 +41,19 @@ bool isNumber(string token) {
 	return true;
 }
 void print(string token) {
+	if (token.size() == 0)
+		return;
 	if (isDelim(token))
 		cout << "Delim\t:\t" << token << endl;
 	else if (isOperator(token)) 
 		cout << "Arithm\t:\t" << token << endl;
 	else if (isRelOp(token))
-		cout << "Relational\t:\t" << token << endl;
+		cout << "Relatop\t:\t" << token << endl;
 	else if (isLogOp(token))
 		cout << "Logical\t:\t" << token << endl;
 	else if (isKeyword(token))
 		cout << "keyword\t:\t" << token << endl;
-	else if (token == "=")
+	else if (isAssign(token))
 		cout << "Assign\t:\t" << token << endl;
 	else if (isNumber(token))
 		cout << "Number\t:\t" << token << endl;
@@ -63,14 +69,16 @@ void analyze(string token) {
 	for (int i = 0; i < token.size(); i++)
 		if (isalnum(token[i]))
 			current += string(1, token[i]);
-		else {
-			if (current.size() > 0) {
-				print(current);
-				current = "";
+		else {//if token[i] is not alpha numeric
+			print(current);
+			current = string(1, token[i]);
+			if (isRelOp(string(1, token[i])) || isOperator(string(1, token[i]))) {//to check <=,>=,!=,*=,+=,/=,-=
+				if (token[i + 1] == '=');
+				current += string(1, token[++i]);
 			}
-			print(string(1, token[i]));
+			print(current);
+			current = "";
 		}
-	if (current.size() > 0)
 		print(current);
 }
 
